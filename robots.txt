@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://marcolinigiacomo77-ops.github.io/convivio/sitemap.xml
