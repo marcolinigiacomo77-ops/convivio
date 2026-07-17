@@ -1239,8 +1239,17 @@ export async function saveOnboardingData(uid, { citta, universita, preferenze })
  
 // --- 5. TIENE TRACCIA DI CHI È LOGGATO ORA (facoltativo, utile per la UI) ---
 export function ascoltaStatoAuth(callback) {
-  onAuthStateChanged(auth, (user) => {
-    callback(user); // user è null se nessuno è loggato
+  onAuthStateChanged(auth, async (user) => {
+    console.log("AUTH STATE:", user ? user.email : "nessuno");
+    if (user) {
+      try {
+        await registraOAggiornaUtente(user);
+        console.log("SCRITTURA FIRESTORE: OK");
+      } catch (err) {
+        console.error("SCRITTURA FIRESTORE FALLITA:", err);
+      }
+    }
+    if (callback) callback(user);
   });
 }
  
